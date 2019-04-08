@@ -4,7 +4,7 @@ A podcast recommendation app written in Swift, consuming the Listen Notes API an
 
 ### Screenshots
 
-![main_screen](/screenshots/podblast_main2.png?raw=true width=100 "Main Screen")
+![main_screen](/screenshots/podblast_main2.png?raw=true =250x "Main Screen")
 
 ![table_view](/screenshots/podblast_tableview.png?raw=true "Table View")
 
