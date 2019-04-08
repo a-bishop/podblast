@@ -1,14 +1,14 @@
-//
-//  DetailsViewController.swift
-//  PodBlast
-//
-//  Created by Leah Bernhardt on 2019-03-17.
-//  Copyright © 2019 ICS214. All rights reserved.
-//
+/**
+DetailsViewController.swift
+ - author: Andrew Bishop
+ - version: 1.0
+ - since: 2019-03-07
+ */
 
 import UIKit
 import SafariServices
 
+/// This class controls the functionality of the details view, which shows the details for a single podcast
 class DetailsViewController: UIViewController {
     
     @IBOutlet weak var podImage: UIImageView!
@@ -27,11 +27,18 @@ class DetailsViewController: UIViewController {
         podDesc.text = podcast?.desc ?? "no description available"
     }
     
+    
+    /// This function is called when the link button is pressed. It presents the url in a web view.
+    ///
+    /// - Parameter sender: (UIButton) the linkButton
     @IBAction func linkButtonPressed(_ sender: Any) {
         let svc = SFSafariViewController(url: URL(string: podcast!.url)!)
         present(svc, animated: true, completion: nil)
     }
     
+    /// This function is called when the "add to favourites" button is pressed. It appends the podcast data to the current array of podcasts on file, through the NSKeyedArchiver coder.
+    ///
+    /// - Parameter sender: (UIButton) the favouritesLink
     @IBAction func saveButtonPressed(_ sender: Any) {
         
         if var pods = NSKeyedUnarchiver.unarchiveObject(withFile: PodcastItem.archiveURL.path) as? [PodcastItem] {
@@ -39,26 +46,13 @@ class DetailsViewController: UIViewController {
             pods.append(podcast!)
             
             if !NSKeyedArchiver.archiveRootObject(pods, toFile: PodcastItem.archiveURL.path) {
-                debugPrint("there was a problem saving")
+                print("there was a problem saving")
             }
         } else {
             if !NSKeyedArchiver.archiveRootObject([podcast!], toFile: PodcastItem.archiveURL.path) {
-                debugPrint("there was a problem saving")
+                print("there was a problem saving")
             }
         }
         
-        
     }
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

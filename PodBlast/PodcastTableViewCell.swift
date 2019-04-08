@@ -1,13 +1,13 @@
-//
-//  PodcastTableViewCell.swift
-//  PodBlast
-//
-//  Created by Andrew on 2019-03-03.
-//  Copyright © 2019 ICS214. All rights reserved.
-//
+/**
+ PodcastTableViewCell.swift
+ - author: Andrew Bishop
+ - version: 1.0
+ - since: 2019-03-07
+ */
 
 import UIKit
 
+/// This class describes the data for each cell in the PodcastTableView
 class PodcastTableViewCell: UITableViewCell {
 
     @IBOutlet weak var podTitle: UILabel!
@@ -20,8 +20,6 @@ class PodcastTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
 }

@@ -1,26 +1,26 @@
-//
-//  PodcastItem.swift
-//  PodBlast
-//
-//  Created by i1 23 on 2019-03-16.
-//  Copyright © 2019 ICS214. All rights reserved.
-//
+/**
+ PodcastItem.swift
+ - author: Andrew Bishop
+ - version: 1.0
+ - since: 2019-03-07
+ */
 
 import Foundation
 import UIKit
 import os
 
+/// This class describes the data in a Podcast Item. It also handles the decoding and encoding of the object for saving to, and deleting from, file
 class PodcastItem: NSObject, NSCoding {
     var thumbnail: String
     var title: String
     var desc: String
     var url: String
     
-    
     static let documentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
     
     static let archiveURL = documentsDirectory.appendingPathComponent("podcastItems")
     
+    /// These are the default values for initialization in case any podcast objects are missing parameters
     override convenience init() {
         self.init(thumbnail: "https://thumbs.dreamstime.com/t/microphone-38421348.jpg", title: "default title", desc: "default description", url: "default url")
     }

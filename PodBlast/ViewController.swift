@@ -93,7 +93,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     This method is called when the genre button is pressed. Sends the text to the createQueryThenFetch
     function
      - parameters:
-        - sender: (UIButton) always the genreButton
+        - sender: (UIButton) the genre button
     */
     @IBAction func genreButtonPressed(_ sender: UIButton) {
         createQueryThenFetch(url: genreButton.titleLabel!.text!)

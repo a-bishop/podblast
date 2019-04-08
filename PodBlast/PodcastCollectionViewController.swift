@@ -1,42 +1,26 @@
-//
-//  PodcastCollectionViewController.swift
-//  PodBlast
-//
-//  Created by Andrew on 2019-03-20.
-//  Copyright © 2019 ICS214. All rights reserved.
-//
+/**
+ PodcastCollectionViewController.swift
+ - author: Andrew Bishop
+ - version: 1.0
+ - since: 2019-03-07
+ */
 
 import UIKit
 import os
 
 private let reuseIdentifier = "podcastCell"
 
+/// This class controls the functionality of the collection view, which displays the user's saved podcasts
 class PodcastCollectionViewController: UICollectionViewController {
     
     var podcasts : [PodcastItem]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-        // self.collectionView!.register(PodcastCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
         podcasts = loadItems()
-        // Do any additional setup after loading the view.
     }
-    
 
-    // MARK: - Navigation
-     
-     
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
         super.prepare(for: segue, sender: sender)
         if (segue.identifier == "FavouritesToDetailsSegue") {
             guard let detailViewController = segue.destination as? DetailsViewController else {
@@ -51,9 +35,10 @@ class PodcastCollectionViewController: UICollectionViewController {
             detailViewController.podcast = podcasts?[indexPath.row]
         }
     }
-
-    // MARK: UICollectionViewDataSource
     
+    /// This function loads the user's saved podcasts from file using NSKeyedUnarchiver
+    ///
+    /// - Returns: An (optional) array of PodcastItems
     func loadItems() -> [PodcastItem]? {
         if let pods = NSKeyedUnarchiver.unarchiveObject(withFile: PodcastItem.archiveURL.path) as? [PodcastItem] {
             return pods
@@ -86,6 +71,9 @@ class PodcastCollectionViewController: UICollectionViewController {
         return cell
     }
 
+    /// This function is called when the delete button is pressed. It removes the item from file using NSKeyedUnarchiver
+    ///
+    /// - Parameter sender: (UIButton) the deleteButton
     @IBAction func deletePressed(_ sender: UIButton) {
         let i = (sender.layer.value(forKey: "index")) as! Int
         podcasts?.remove(at: i)
@@ -102,24 +90,7 @@ class PodcastCollectionViewController: UICollectionViewController {
         }
         collectionView.reloadData()
     }
-    // MARK: UICollectionViewDelegate
 
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
     override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
         return false
     }

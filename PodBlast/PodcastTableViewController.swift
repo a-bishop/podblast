@@ -1,15 +1,14 @@
-//
-//  PodcastTableViewController.swift
-//  PodBlast
-//
-//  Created by Andrew on 2019-03-06.
-//  Copyright © 2019 ICS214. All rights reserved.
-//
+/**
+ PodcastTableViewController.swift
+ - author: Andrew Bishop
+ - version: 1.0
+ - since: 2019-03-07
+ */
 
 import UIKit
 
-// extension to UIImageView which loads images from image URLs
 extension UIImageView {
+    /// extension to UIImageView which loads images from image URLs
     func load(url: URL) {
         DispatchQueue.global().async { [weak self] in
             if let data = try? Data(contentsOf: url) {
@@ -23,9 +22,8 @@ extension UIImageView {
     }
 }
 
-
+/// This class is used to control the behaviour of the table view. It manages multiple API calls as the user scrolls through the table view and reloads the data as needed, using the UITableViewDataSourcePrefetching protocol.
 class PodcastTableViewController: UITableViewController, UITableViewDataSourcePrefetching {
-    
     
     let cellIdentifier = "PodcastTableViewCell"
     var podcasts : [PodcastItem]?
@@ -39,7 +37,6 @@ class PodcastTableViewController: UITableViewController, UITableViewDataSourcePr
         tableView.prefetchDataSource = self
     }
 
-    // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -53,6 +50,7 @@ class PodcastTableViewController: UITableViewController, UITableViewDataSourcePr
             fatalError("Selected cell is not of type \(cellIdentifier)")
         }
         var item = PodcastItem()
+        // Check to ensure that the index is not greater than the total number of podcasts in the original query
         if (indexPath.row < listenNotes!.currCount) {
             item = self.podcasts![indexPath.row]
         }
@@ -63,8 +61,6 @@ class PodcastTableViewController: UITableViewController, UITableViewDataSourcePr
         return cell
     }
     
-    // MARK: - Navigation
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         if segue.identifier == "TableToDetailsSegue" {
@@ -81,10 +77,11 @@ class PodcastTableViewController: UITableViewController, UITableViewDataSourcePr
         }
     }
     
-    // MARK: Delegate Methods
+    /// This method is called when the fetchPodcasts function is returned.
+    ///
+    /// - Parameter newIndexPathsToReload: The cells of the table view to reload when a new fetch function is returned
     func onFetchCompleted(with newIndexPathsToReload: [IndexPath]?) {
         guard let newIndexPathsToReload = newIndexPathsToReload else {
-            print("into this block")
             tableView.isHidden = false
             tableView.reloadData()
             return
@@ -93,10 +90,9 @@ class PodcastTableViewController: UITableViewController, UITableViewDataSourcePr
         tableView.reloadRows(at: indexPathsToReload, with: .automatic)
     }
 
-    
-    // MARK: Data Prefetching
+
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        // if there are still indexPaths without data
+        // if there are still indexPaths without data...
         if indexPaths.contains(where: isLoadingCell) {
             
             // don't initiate fetch unless current fetch has finished
@@ -106,6 +102,7 @@ class PodcastTableViewController: UITableViewController, UITableViewDataSourcePr
             
             self.isFetchInProgress = true
             
+            // the fetch function returns a closure after completing the async task
             listenNotes!.fetchPodcasts(urlString: self.urlString!, completion: {(details: [PodcastItem]) -> Void in
                 self.isFetchInProgress = false
                 self.podcasts!.append(contentsOf: details)
@@ -115,18 +112,30 @@ class PodcastTableViewController: UITableViewController, UITableViewDataSourcePr
         }
     }
     
+    
+    /// This is a helper function to check if the cell at the indexPath is loading data
+    ///
+    /// - Parameter indexPath: The indexPath to check
+    /// - Returns: boolean
     func isLoadingCell(for indexPath: IndexPath) -> Bool {
         return indexPath.row >= listenNotes!.currCount
     }
     
     
+    /// This function returns the intersection of the index paths to reload and the view's visible index paths.
+    ///
+    /// - Parameter indexPaths: An array of IndexPaths
+    /// - Returns: The intersection of the index paths and the indexes of the currently visible rows
     func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath]) -> [IndexPath] {
         let indexPathsForVisibleRows = tableView.indexPathsForVisibleRows ?? []
         let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
         return Array(indexPathsIntersection)
     }
     
-    // calculates cells of the table view to reload when a new fetch function is returned
+    /// This function calculates the cells of the table view to reload when a new fetch function is returned
+    ///
+    /// - Parameter podcastItems: An array of PodcastItems
+    /// - Returns: An array of IndexPaths
     func calculateIndexPathsToReload(from podcastItems: [PodcastItem]) -> [IndexPath]  {
         let startIndex = listenNotes!.totalPodcasts - listenNotes!.nextOffset
         let endIndex = startIndex + listenNotes!.nextOffset

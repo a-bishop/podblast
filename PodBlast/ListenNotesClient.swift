@@ -43,6 +43,7 @@ final class ListenNotesClient {
                 return
             }
         
+            // check the http response code and make sure it's correct.
             guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
                 return
             }
@@ -59,8 +60,9 @@ final class ListenNotesClient {
                 // now we have the podcastData, initialize array of podcast items
                 var podcastDetails = [PodcastItem]()
             
+                // parse the JSON data
                 guard let podcastData = try JSONSerialization.jsonObject(with: responseData, options: []) as? [String: Any] else {
-                    print("query error trying to convert data to JSON")
+                    print("query error trying to convert data from JSON")
                     return
                 }
             
@@ -93,9 +95,10 @@ final class ListenNotesClient {
                 DispatchQueue.main.async {
                     completion(podcastDetails)
                     if (self.totalPodcasts == 0) {
-                        // constrain to 100 results if results more than 100
+                        // Constrain to 100 results
                         self.totalPodcasts = totalResults < 100 ? totalResults : 100
                     }
+                    // Save the current count and the next offset for potential next API call
                     self.currCount += count
                     self.nextOffset = nextOffset
                 }
