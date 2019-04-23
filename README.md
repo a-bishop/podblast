@@ -7,10 +7,10 @@ Please note that this was my first mobile app and the intent was to learn Swift 
 ### Screenshots
 
 <div>
-	<img style="margin: 5rem;" src="/screenshots/podblast_main2.png" alt="main_screen" width="200"/>
-	<img style="margin: 5rem;" src="/screenshots/podblast_tableview.png" alt="table_view" width="200"/>
+	<img style="margin: 0 10px;" src="/screenshots/podblast_main2.png" alt="main_screen" width="200"/>
+	<img style="margin: 0 10px;" src="/screenshots/podblast_tableview.png" alt="table_view" width="200"/>
 </div>
 <div>
-	<img style="margin: 5rem;" src="/screenshots/podblast_details.png" alt="details_view" width="200"/>
-	<img style="margin: 5rem;" src="/screenshots/podblast_favourites.png" alt="favourites_view" width="200"/>
+	<img style="margin: 0 10px;" src="/screenshots/podblast_details.png" alt="details_view" width="200"/>
+	<img style="margin: 0 10px;" src="/screenshots/podblast_favourites.png" alt="favourites_view" width="200"/>
 </div>
