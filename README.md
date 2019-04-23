@@ -6,7 +6,7 @@ Please note that this was my first mobile app and the intent was to learn Swift 
 
 ### Screenshots
 
-<div style="display: grid; grid-template-columns: repeat(2, 1fr)">
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); grid-column-gap: 10px; grid-row-gap: 15px;">
 	<img src="/screenshots/podblast_main2.png" alt="main_screen" width="200"/>
 	<img src="/screenshots/podblast_tableview.png" alt="table_view" width="200"/>
 	<img src="/screenshots/podblast_details.png" alt="details_view" width="200"/>
