@@ -12,6 +12,14 @@ A podcast recommendation app written in Swift, consuming the Listen Notes API an
 * UITableViewDataSourcePrefetching
 * closures, conditionals, general OOP in Swift
 
+### Installation
+
+1. Clone this repo
+2. Get yourself a Listen Notes API key for free [here](https://www.listennotes.com/api/pricing/)
+3. Open the project in XCode and add a file "ApiKeys.plist"
+4. Add the following key/value pair: key = "LISTENNOTES_API_KEY", value = your api key string
+5. Launch the app!
+
 _Please note that this was my first mobile app and the intent was to learn Swift and iOS programming, not interface design! :P_
 
 ### Screenshots
