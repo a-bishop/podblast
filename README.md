@@ -1,6 +1,6 @@
 ## Podblast
 
-A podcast recommendation app written in Swift, consuming the Listen Notes API and featuring infinite scroll. Search by topic, podcast name, or by genre. Provides the ability to save favourite podcasts and visit links for each podcast.
+A podcast search and recommendation app written in Swift, consuming the Listen Notes API.
 
 ### Swift APIs And Language Features Used
 
