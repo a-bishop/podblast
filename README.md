@@ -20,7 +20,7 @@ A podcast search and recommendation app written in Swift, consuming the Listen N
 4. Add the following key/value pair: key = "LISTENNOTES_API_KEY", value = your api key string
 5. Launch the app!
 
-_Please note that this was my first mobile app and the intent was to learn Swift and iOS programming, not interface design! :P_
+_Please note that the intent here was to learn Swift and iOS programming, not interface design! :P_
 
 ### Screenshots
 
