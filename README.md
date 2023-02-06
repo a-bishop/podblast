@@ -2,16 +2,6 @@
 
 A podcast search and recommendation app written in Swift, consuming the Listen Notes API.
 
-### Swift APIs And Language Features Used
-
-* TableView
-* CollectionView
-* NSCoding
-* GCD
-* URLSession, URLRequest
-* UITableViewDataSourcePrefetching
-* closures, conditionals, general OOP in Swift
-
 ### Installation
 
 1. Clone this repo
